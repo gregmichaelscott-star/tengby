@@ -432,16 +432,28 @@ function NutritionTab({ sport }) {
 // ---------- Stretch tab ----------
 function StretchTab({ sport }) {
   const extra = sport === "rugby" ? STRETCH.rugbyExtra : STRETCH.tennisExtra;
+  const warmup = sport === "rugby" ? STRETCH.rugbyWarmup : STRETCH.tennisWarmup;
+  const cooldown = sport === "rugby" ? STRETCH.rugbyCooldown : STRETCH.tennisCooldown;
   return (
     <div>
       <section style={styles.card}>
-        <h2 style={styles.cardTitle}>Dynamic — Before Training</h2>
-        <p style={styles.bodyText}>Movement-based stretches to raise tissue temperature and prep the nervous system. Hold nothing static here — keep moving.</p>
+        <h2 style={styles.cardTitle}>Warm Up</h2>
+        <p style={styles.bodyText}>10–12 minutes before any session. Raise heart rate, activate key muscles, prep the nervous system for work.</p>
+        <ul style={styles.tipList}>{warmup.map((t, i) => <li key={i} style={styles.tipItem}>{t}</li>)}</ul>
+      </section>
+      <section style={styles.card}>
+        <h2 style={styles.cardTitle}>Dynamic Stretching — Within Warm Up</h2>
+        <p style={styles.bodyText}>Movement-based stretches to increase range of motion without reducing power. Keep moving — no static holds here.</p>
         <ul style={styles.tipList}>{STRETCH.dynamic.map((t, i) => <li key={i} style={styles.tipItem}>{t}</li>)}</ul>
       </section>
       <section style={styles.card}>
-        <h2 style={styles.cardTitle}>Static — After Training</h2>
-        <p style={styles.bodyText}>Hold each position 20–30 seconds, breathing slowly. Best done once muscles are warm, post-session.</p>
+        <h2 style={styles.cardTitle}>Cool Down</h2>
+        <p style={styles.bodyText}>8–10 minutes after every session. Gradually lower heart rate and begin the recovery process.</p>
+        <ul style={styles.tipList}>{cooldown.map((t, i) => <li key={i} style={styles.tipItem}>{t}</li>)}</ul>
+      </section>
+      <section style={styles.card}>
+        <h2 style={styles.cardTitle}>Static Stretching — Within Cool Down</h2>
+        <p style={styles.bodyText}>Hold each position 20–30 seconds, breathing slowly. Best done while muscles are still warm post-session.</p>
         <ul style={styles.tipList}>{STRETCH.static.map((t, i) => <li key={i} style={styles.tipItem}>{t}</li>)}</ul>
       </section>
       <section style={styles.card}>
@@ -487,25 +499,32 @@ const PRESETS = [
 const NUTRITION = {
   preIntro: "Aim to fuel 2–3 hours before a session, with a smaller top-up 30–45 minutes out if needed.",
   pre: [
-    "2–3 hrs before: balanced meal with carbs + moderate protein, lower in fat and fibre (e.g. rice + chicken, oats + banana)",
-    "30–45 min before: small, easily digested carb snack if needed — banana, toast with honey, a few dates",
-    "Avoid large, high-fat, or high-fibre meals right before training — they sit heavy and can cause GI discomfort",
+    "2–3 hrs before: balanced meal with carbs + moderate protein, lower in fat and fibre (e.g. rice + chicken, oats + banana, pasta + lean protein)",
+    "30–45 min before: small, easily digested carb snack if needed — banana, toast with honey, a few dates, a rice cake",
+    "Avoid large, high-fat, or high-fibre meals right before training — they sit heavy and can cause GI discomfort during hard efforts",
     "Sip water steadily in the lead-up rather than chugging right before you start",
+    "Caffeine (coffee, tea) 30–60 min before can sharpen focus and improve output — know your own tolerance and avoid it late in the day",
   ],
-  recoveryIntro: "The 30–60 minutes after a hard session is a useful window for replenishing — but consistent daily intake matters more than perfect timing.",
+  recoveryIntro: "The 30–60 minutes after a hard session is a useful window for replenishing — but consistent daily intake across the whole day matters more than perfect timing.",
   recovery: [
-    "Pair carbs + protein post-session to restock glycogen and support muscle repair (e.g. chocolate milk, yogurt + fruit, rice + eggs)",
-    "Include some protein at each meal across the day, not just post-workout",
-    "Colorful veg and fruit for micronutrients and antioxidant support",
-    "Don't skip carbs — they're what refill the energy stores you just used",
+    "Pair carbs + protein post-session to restock glycogen and support muscle repair (e.g. chocolate milk, yogurt + fruit, rice + eggs, a protein shake + banana)",
+    "Include protein at each meal across the day — not just post-workout",
+    "Colorful veg and fruit for micronutrients and antioxidant support — good for inflammation management across a long training year",
+    "Don't skip carbs — they're what refill the energy stores you just depleted",
+    "Sleep is your best recovery tool — eating well but sleeping poorly limits the gains from both training and nutrition",
+    "On back-to-back training days, prioritize carb-heavy evening meals to top up stores overnight",
   ],
   rugby: [
     "Repeat-sprint and contact work is glycogen-hungry — don't under-fuel carbs on Build-phase days",
-    "On double-session or game-sim days, a carb-focused snack between sessions helps maintain output",
+    "On double-session or game-sim days, a carb-focused snack between sessions helps maintain output quality in the second session",
+    "Protein needs are higher on contact-heavy days — muscle tissue takes more damage and needs more raw material to rebuild",
+    "Iron-rich foods (red meat, spinach, lentils) support oxygen-carrying capacity — relevant for a sport as demanding as sevens",
   ],
   tennis: [
-    "Long matches mean steady fueling matters — practice your on-court snack/drink routine in training, not just on match day",
-    "Easily portable carbs (bananas, dried fruit, sports drink) work well for changeovers",
+    "Long matches mean steady fueling matters — practice your on-court snack and drink routine in training, not just on match day",
+    "Easily portable carbs (bananas, dried fruit, sports drink, energy gels) work well for changeovers",
+    "Shoulder and arm volume is high in tennis — adequate protein and sleep are important for connective tissue resilience across a long season",
+    "On match days, eat a familiar pre-match meal — not the time to experiment with new foods",
   ],
 };
 
@@ -524,6 +543,40 @@ const STRETCH = {
     "Hip flexor lunge stretch — 30 sec each side",
     "Calf stretch against a wall — 30 sec each leg",
     "Chest and shoulder doorway stretch — 30 sec",
+    "Glute stretch (figure-four or pigeon) — 30 sec each side",
+    "Child's pose — 30–60 sec",
+  ],
+  rugbyWarmup: [
+    "2 min easy jog to raise core temperature",
+    "Lateral shuffles and backpedal — 2 × 20m each",
+    "Glute bridge holds — 2 × 10 reps, focus on full extension",
+    "Band walks (lateral, mini-band around ankles) — 2 × 10 each direction",
+    "Dynamic hip flexor and groin mobilization — 8 each side",
+    "Explosive step-ups — 2 × 6 each leg, building into contact and sprint readiness",
+  ],
+  rugbyCooldown: [
+    "3–4 min walk or very easy jog to bring heart rate down gradually",
+    "Foam roll quads, IT band, and calves — 60 sec each",
+    "Seated hamstring stretch — 30 sec each leg",
+    "Lying hip flexor and glute stretch — 30 sec each side",
+    "Upper trap and neck side stretch — 20 sec each side (especially after contact sessions)",
+    "Slow diaphragmatic breathing — 2 min lying flat, focusing on full exhales",
+  ],
+  tennisWarmup: [
+    "2–3 min skipping or easy jog to raise temperature",
+    "Lateral shuffles — 3 × 10m each direction, building pace",
+    "Shoulder circles and cross-body arm swings — 15 each direction",
+    "Thoracic rotation drills — 8 each side",
+    "Split-step into directional sprint — 6 reps, simulating return of serve",
+    "Mini groundstroke shadow swings — 10 forehand, 10 backhand, focus on trunk rotation",
+  ],
+  tennisCooldown: [
+    "3–4 min easy walking or slow rally at the net to wind down",
+    "Wrist and forearm stretch (flexion and extension) — 20 sec each direction",
+    "Shoulder cross-body stretch and doorway chest opener — 30 sec each",
+    "Seated spinal rotation — 30 sec each side",
+    "Standing quad and hip flexor stretch — 30 sec each leg",
+    "Slow breathing + light spinal decompression (hanging from a bar or doorframe) — 30–60 sec",
   ],
   rugbyExtra: [
     "Extra attention to hip flexors and groin given repeated sprinting and change of direction",
@@ -533,7 +586,7 @@ const STRETCH = {
   tennisExtra: [
     "Shoulder and rotator cuff mobility work — high serve and overhead volume demands this",
     "Wrist and forearm stretches — flexion and extension, 20 sec each",
-    "Thoracic rotation stretch both directions — supports the trunk rotation in groundstrokes and serves",
+    "Thoracic rotation stretch both directions — supports trunk rotation in groundstrokes and serves",
   ],
 };
 
